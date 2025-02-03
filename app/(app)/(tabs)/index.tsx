@@ -29,11 +29,15 @@ const Contact = ({ id, className }: { id: number; className?: string }) => {
 
 export default function Index() {
   return (
-    <View className="pt-safe flex flex-1 flex-col justify-center items-center bg-background">
+    <View className="pt-safe flex flex-1 flex-col justify-center bg-background">
       {/* <View className="flex items-start w-full px-10 py-3">
         <Text className="text-xl font-semibold">Title</Text>
       </View> */}
-      <FlatList data={new Array(10)} renderItem={({ index }) => <Contact id={index} className="h-[175px] mb-10" />} />
+      <FlatList
+        className="px-4"
+        data={new Array(10)}
+        renderItem={({ index }) => <Contact id={index} className="h-[175px] mb-10" />}
+      />
     </View>
   )
 }
