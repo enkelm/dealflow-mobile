@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons'
-import { ComponentProps, useState } from 'react'
+import { Link } from 'expo-router'
+import { ComponentProps, Fragment, useState } from 'react'
 import { View, Text, Pressable, ScrollView } from 'react-native'
 
 type DetailSectionItem = {
@@ -61,9 +62,9 @@ const ContactDetailsSection = () => {
   )
 }
 
-export default function Contact() {
+export default function ContactPage() {
   return (
-    <View className="pt-safe px-4 flex flex-1 bg-background">
+    <Fragment>
       <ScrollView contentContainerClassName="gap-4">
         <View className="flex flex-row justify-between items-center rounded-lg bg-primary p-4">
           <View className="flex flex-col gap-2">
@@ -97,14 +98,14 @@ export default function Contact() {
       </ScrollView>
       <View className="absolute bottom-0 left-0 right-0 pb-safe z-10 bg-background">
         <View className="flex flex-row justify-around items-center py-4">
-          <Pressable className="flex flex-col justify-center items-center">
+          <Link href={{ pathname: '/[contact]/edit', params: { contact: 1 } }} asChild>
             <Feather name="edit" size={24} />
-          </Pressable>
+          </Link>
           <Pressable className="flex flex-col justify-center items-center">
             <Feather name="trash" size={24} />
           </Pressable>
         </View>
       </View>
-    </View>
+    </Fragment>
   )
 }
