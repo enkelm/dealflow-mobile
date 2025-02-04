@@ -1,23 +1,26 @@
-import { ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
-import { Slot } from 'expo-router'
+import { Slot, ErrorBoundary } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { colorScheme } from 'nativewind'
-import { useEffect } from 'react'
-import { useColorScheme } from 'react-native'
+import { Fragment, useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ThemeProvider as NavThemeProvider } from '@react-navigation/native'
 
-import '@/global.css'
-import { navigationThemes } from '@/utils/navigation-theme'
+import { useColorScheme, useInitialAndroidBarSync } from '@/lib/use-color-scheme'
+import { NAV_THEME } from '@/theme'
+
+import '../global.css'
+// import 'expo-dev-client'
 
 SplashScreen.preventAutoHideAsync()
 colorScheme.set('system')
 
 export default function RootLayout() {
-  const theme = useColorScheme()
+  useInitialAndroidBarSync()
+  const { colorScheme, isDarkColorScheme } = useColorScheme()
   const [loaded] = useFonts({ SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf') })
 
   useEffect(() => {
@@ -30,13 +33,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={navigationThemes.get(theme ?? 'light')}>
-      <SafeAreaProvider>
-        <GestureHandlerRootView>
-          <Slot />
-          <StatusBar style="auto" />
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
-    </ThemeProvider>
+    <Fragment>
+      <StatusBar
+        key={`root-status-bar-${isDarkColorScheme ? 'light' : 'dark'}`}
+        style={isDarkColorScheme ? 'light' : 'dark'}
+      />
+      <NavThemeProvider value={NAV_THEME[colorScheme]}>
+        <SafeAreaProvider>
+          <GestureHandlerRootView>
+            <Slot />
+            <StatusBar style="auto" />
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </NavThemeProvider>
+    </Fragment>
   )
 }

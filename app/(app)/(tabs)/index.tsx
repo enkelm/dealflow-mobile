@@ -1,23 +1,30 @@
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, View } from 'react-native'
+import { Text } from '@/components/nativewindui/text'
+import { Icon } from '@roninoss/icons'
+import { useColorScheme } from '@/lib/use-color-scheme'
 
 const Contact = ({ id, className }: { id: number; className?: string }) => {
+  const { colors } = useColorScheme()
   return (
     <View className={`flex-row items-center bg-primary gap-10 px-8 rounded-xl ${className}`}>
       <Link href={{ pathname: '/[contact]', params: { contact: id } }} asChild>
-        <Text className="border-4 border-background rounded-full text-background">
-          <Feather name="user" size={42} />
-        </Text>
+        <View className="border-4 border-background rounded-full text-background">
+          {/* <Feather name="user" size={42} /> */}
+          <Icon name="account-circle" color={colors.destructive} />
+        </View>
       </Link>
       <View className="flex justify-center h-full gap-1">
-        <Text className="text-background text-xl font-semibold">Enkel Murati</Text>
+        <Text variant="heading" color="primary">
+          Enkel Murati
+        </Text>
         <Text className="text-background text-lg">
           <Feather name="phone-call" size={16} className="text-background" />
           {'  '}
           +355 69 966 0867
         </Text>
-        <Text className="text-background text-lg">
+        <Text className="text-primary text-lg">
           <Feather name="map-pin" size={16} className="text-background" />
           {'  '}
           Durrës

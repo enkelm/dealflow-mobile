@@ -1,72 +1,66 @@
-const { createThemes } = require('tw-colors')
+const { hairlineWidth, platformSelect } = require('nativewind/theme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
-  darkMode: 'class',
-  content: ['./app/**/*.{js,jsx,ts,tsx}'],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
-  theme: {},
-  plugins: [
-    createThemes(
-      ({ light, dark }) => ({
-        light: light({
-          background: 'hsl(0 0% 100%)',
-          foreground: 'hsl(0 0% 3.9%)',
-          card: 'hsl(0 0% 100%)',
-          'card-foreground': 'hsl(0 0% 3.9%)',
-          popover: 'hsl(0 0% 100%)',
-          'popover-foreground': 'hsl(0 0% 3.9%)',
-          primary: 'hsl(0 0% 9%)',
-          'primary-foreground': 'hsl(0 0% 98%)',
-          secondary: 'hsl(0 0% 96.1%)',
-          'secondary-foreground': 'hsl(0 0% 9%)',
-          muted: 'hsl(0 0% 96.1%)',
-          'muted-foreground': 'hsl(0 0% 45.1%)',
-          accent: 'hsl(0 0% 96.1%)',
-          'accent-foreground': 'hsl(0 0% 9%)',
-          destructive: 'hsl(0 84.2% 60.2%)',
-          'destructive-foreground': 'hsl(0 0% 98%)',
-          border: 'hsl(0 0% 89.8%)',
-          input: 'hsl(0 0% 89.8%)',
-          ring: 'hsl(0 0% 3.9%)',
-          'chart-1': 'hsl(12 76% 61%)',
-          'chart-2': 'hsl(173 58% 39%)',
-          'chart-3': 'hsl(197 37% 24%)',
-          'chart-4': 'hsl(43 74% 66%)',
-          'chart-5': 'hsl(27 87% 67%)',
-        }),
-        dark: dark({
-          background: 'hsl(0 0% 3.9%)',
-          foreground: 'hsl(0 0% 98%)',
-          card: 'hsl(0 0% 3.9%)',
-          'card-foreground': 'hsl(0 0% 98%)',
-          popover: 'hsl(0 0% 3.9%)',
-          'popover-foreground': 'hsl(0 0% 98%)',
-          primary: 'hsl(0 0% 98%)',
-          'primary-foreground': 'hsl(0 0% 9%)',
-          secondary: 'hsl(0 0% 14.9%)',
-          'secondary-foreground': 'hsl(0 0% 98%)',
-          muted: 'hsl(0 0% 14.9%)',
-          'muted-foreground': 'hsl(0 0% 63.9%)',
-          accent: 'hsl(0 0% 14.9%)',
-          'accent-foreground': 'hsl(0 0% 98%)',
-          destructive: 'hsl(0 62.8% 30.6%)',
-          'destructive-foreground': 'hsl(0 0% 98%)',
-          border: 'hsl(0 0% 14.9%)',
-          input: 'hsl(0 0% 14.9%)',
-          ring: 'hsl(0 0% 83.1%)',
-          'chart-1': 'hsl(220 70% 50%)',
-          'chart-2': 'hsl(160 60% 45%)',
-          'chart-3': 'hsl(30 80% 55%)',
-          'chart-4': 'hsl(280 65% 60%)',
-          'chart-5': 'hsl(340 75% 55%)',
-        }),
-      }),
-      {
-        strict: true,
-        defaultTheme: { light: 'light', dark: 'dark' },
-      }
-    ),
-  ],
+  theme: {
+    extend: {
+      colors: {
+        border: withOpacity('border'),
+        input: withOpacity('input'),
+        ring: withOpacity('ring'),
+        background: withOpacity('background'),
+        foreground: withOpacity('foreground'),
+        primary: {
+          DEFAULT: withOpacity('primary'),
+          foreground: withOpacity('primary-foreground'),
+        },
+        secondary: {
+          DEFAULT: withOpacity('secondary'),
+          foreground: withOpacity('secondary-foreground'),
+        },
+        destructive: {
+          DEFAULT: withOpacity('destructive'),
+          foreground: withOpacity('destructive-foreground'),
+        },
+        muted: {
+          DEFAULT: withOpacity('muted'),
+          foreground: withOpacity('muted-foreground'),
+        },
+        accent: {
+          DEFAULT: withOpacity('accent'),
+          foreground: withOpacity('accent-foreground'),
+        },
+        popover: {
+          DEFAULT: withOpacity('popover'),
+          foreground: withOpacity('popover-foreground'),
+        },
+        card: {
+          DEFAULT: withOpacity('card'),
+          foreground: withOpacity('card-foreground'),
+        },
+      },
+      borderWidth: {
+        hairline: hairlineWidth(),
+      },
+    },
+  },
+  plugins: [],
+}
+
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return platformSelect({
+        ios: `rgb(var(--${variableName}) / ${opacityValue})`,
+        android: `rgb(var(--android-${variableName}) / ${opacityValue})`,
+      })
+    }
+    return platformSelect({
+      ios: `rgb(var(--${variableName}))`,
+      android: `rgb(var(--android-${variableName}))`,
+    })
+  }
 }
