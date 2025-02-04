@@ -1,50 +1,33 @@
-import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, View } from 'react-native'
 import { Text } from '@/components/nativewindui/text'
 import { Icon } from '@roninoss/icons'
 import { useColorScheme } from '@/lib/use-color-scheme'
 
-const Contact = ({ id, className }: { id: number; className?: string }) => {
+const Contact = ({ id }: { id: number }) => {
   const { colors } = useColorScheme()
   return (
-    <View className={`flex-row items-center bg-primary gap-10 px-8 rounded-xl ${className}`}>
-      <Link href={{ pathname: '/[contact]', params: { contact: id } }} asChild>
-        <View className="border-4 border-background rounded-full text-background">
-          {/* <Feather name="user" size={42} /> */}
-          <Icon name="account-circle" color={colors.destructive} />
+    <Link href={{ pathname: '/[contact]', params: { contact: id } }}>
+      <View className="w-full flex flex-1 flex-row items-center bg-primary gap-10 px-8 rounded-xl">
+        <Icon name="account-circle" color={colors.foreground} size={42} />
+        <View className="flex justify-center">
+          <Text>Enkel Murati</Text>
+          <Text>
+            <Icon name="phone" size={16} /> +355 69 966 0867
+          </Text>
+          <Text>
+            <Icon name="map-marker-outline" size={16} ios={{ useMaterialIcon: true }} /> Durrës
+          </Text>
         </View>
-      </Link>
-      <View className="flex justify-center h-full gap-1">
-        <Text variant="heading" color="primary">
-          Enkel Murati
-        </Text>
-        <Text className="text-background text-lg">
-          <Feather name="phone-call" size={16} className="text-background" />
-          {'  '}
-          +355 69 966 0867
-        </Text>
-        <Text className="text-primary text-lg">
-          <Feather name="map-pin" size={16} className="text-background" />
-          {'  '}
-          Durrës
-        </Text>
       </View>
-    </View>
+    </Link>
   )
 }
 
 export default function Index() {
   return (
     <View className="pt-safe flex flex-1 flex-col justify-center bg-background">
-      {/* <View className="flex items-start w-full px-10 py-3">
-        <Text className="text-xl font-semibold">Title</Text>
-      </View> */}
-      <FlatList
-        className="px-4"
-        data={new Array(10)}
-        renderItem={({ index }) => <Contact id={index} className="h-[175px] mb-10" />}
-      />
+      <FlatList className="px-4" data={new Array(10)} renderItem={({ index }) => <Contact id={index} />} />
     </View>
   )
 }

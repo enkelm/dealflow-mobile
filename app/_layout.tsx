@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font'
-import { Slot, ErrorBoundary } from 'expo-router'
+import { Slot } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { colorScheme } from 'nativewind'
@@ -13,7 +13,7 @@ import { useColorScheme, useInitialAndroidBarSync } from '@/lib/use-color-scheme
 import { NAV_THEME } from '@/theme'
 
 import '../global.css'
-// import 'expo-dev-client'
+import 'expo-dev-client'
 
 SplashScreen.preventAutoHideAsync()
 colorScheme.set('system')
