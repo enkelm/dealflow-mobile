@@ -1,4 +1,3 @@
-import { Feather } from '@expo/vector-icons'
 import { Icon, MaterialIconName } from '@roninoss/icons'
 import { Link } from 'expo-router'
 import { Fragment, useState } from 'react'
@@ -67,7 +66,7 @@ const ContactDetailsSection = () => {
 export default function ContactPage() {
   return (
     <Fragment>
-      <ScrollView contentContainerClassName="gap-4">
+      <ScrollView className="mb-24" contentContainerClassName="gap-4">
         <View className="flex flex-row justify-between items-center rounded-lg bg-primary p-4">
           <View className="flex flex-col gap-2">
             <Text variant="heading">Enkel Murati</Text>

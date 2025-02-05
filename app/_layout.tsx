@@ -5,14 +5,13 @@ import { StatusBar } from 'expo-status-bar'
 import { colorScheme } from 'nativewind'
 import { Fragment, useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native'
-
 import { useColorScheme, useInitialAndroidBarSync } from '@/lib/use-color-scheme'
 import { NAV_THEME } from '@/theme'
 
 import '../global.css'
+import 'react-native-reanimated'
 import 'expo-dev-client'
 
 SplashScreen.preventAutoHideAsync()

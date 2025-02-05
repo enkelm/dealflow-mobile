@@ -1,8 +1,11 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
+import { Button } from '@/components/nativewindui/button'
+import { Text } from '@/components/nativewindui/text'
+import { Icon } from '@roninoss/icons'
 
 export default function EditModal() {
-  const { control, handleSubmit, formState } = useForm({
+  const { control } = useForm({
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -44,6 +47,10 @@ export default function EditModal() {
         )}
         name="phoneNumber"
       />
+      <Button>
+        <Text>Click me</Text>
+        <Icon name="arrow-right" color="white" size={20} />
+      </Button>
     </View>
   )
 }
