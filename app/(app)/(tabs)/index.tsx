@@ -27,7 +27,12 @@ const Contact = ({ id }: { id: number }) => {
 export default function Index() {
   return (
     <View className="pt-safe flex flex-1 flex-col justify-center bg-background">
-      <FlatList className="px-4" data={new Array(10)} renderItem={({ index }) => <Contact id={index} />} />
+      <FlatList
+        className="px-4"
+        data={new Array(10)}
+        ItemSeparatorComponent={() => <View className="border-2 border-destructive-foreground h-0.5" />}
+        renderItem={({ index }) => <Contact id={index} />}
+      />
     </View>
   )
 }
