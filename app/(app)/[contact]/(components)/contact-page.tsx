@@ -74,7 +74,6 @@ export default function ContactPage() {
           </View>
           <Icon name="account-circle-outline" size={42} />
         </View>
-
         <ContactDetailsSection />
         <ContactSection
           name="Financat"
